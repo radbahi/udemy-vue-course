@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>A First App</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div id="app">
+      <div>
+        <label for="goal">Goal</label>
+        <!-- v-model property below connects this html input tag to vue -->
+        <input type="text" id="goal" v-model="enteredValue" />
+        <!-- v-on:click property below connects to vue by listening for a click and executing the function defined in vue methods -->
+        <button v-on:click="addGoal">Add Goal</button>
+      </div>
+      <ul>
+        <!-- v-for perhaps acts like an array map? define every value in the goals array as goal and outputs them with {{ goal }} ? -->
+        <li v-for="goal in goals">{{ goal }}</li>
+      </ul>
+    </div>
+    <!-- script provided by vuejs.org did not properly mount vue for some reason so i used same script as lecture -->
+    <script src="https://unpkg.com/vue@next"></script>
+    <script src="app.js"></script>
+  </body>
+</html>
