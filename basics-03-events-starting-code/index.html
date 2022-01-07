@@ -19,8 +19,10 @@
     <section id="events">
       <h2>Events in Action</h2>
       <!-- v-bind is for setting value of an attribute -->
+      <!-- : is also a shorthand way to use v-bind, so like :value -->
       <!-- v-on is an event listener, after which you define the event -->
-      <button v-on:click="add(5)">Add 5</button>
+      <!-- @ is also a shorthand way to write v-on:, so like @click.right -->
+      <button v-on:click="add(10)">Add 10</button>
       <!-- the .right modifier makes this click only react to a rightclick -->
       <button v-on:click.right="reduce(5)">Reduce 5</button>
       <!-- we also passed arguments above -->
@@ -28,15 +30,15 @@
       <p v-once>Starting Counter: {{ counter }}</p>
       <p>Result: {{ counter }}</p>
       <!-- you can add multiple directives on one tag -->
-      <input
-        type="text"
-        v-on:input="setName($event, 'Bahi')"
-        v-on:keyup.enter="confirmInput"
-      />
+      <input type="text" v-model="name" />
+      <input type="text" v-model="lastName" />
+      <!-- v-model is a shortcut for both the v-bind:value and v-on:input directives. it is 2 way binding -->
+      <!-- NO shorthand for v-model -->
       <!-- $event is used when needing explicit access to the event -->
       <!-- ex. if setName has a param already in it, we would write setName(event,
       param) -->
-      <p>Your Name: {{ confirmedName }}</p>
+      <button v-on:click="resetInput">Reset Input</button>
+      <p>Your Name: {{ fullname }}</p>
       <!-- the .prevent is an event modifier to preventDefault() -->
       <form v-on:submit.prevent="submitForm">
         <input type="text" />
