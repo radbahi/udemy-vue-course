@@ -2,8 +2,19 @@
   <section>
     <header><h1>My Friends</h1></header>
     <ul>
-      <friend-contact></friend-contact>
-      <friend-contact></friend-contact>
+      <!-- if you need to pass in a data type that isn't a string, you have to use : -->
+      <!-- we use : for dynamic data regardless though -->
+      <friend-contact
+        v-for="friend in friends"
+        :key="friend.id"
+        :id="friend.id"
+        :name="friend.name"
+        :phone-number="friend.phone"
+        :email-address="friend.email"
+        :is-favorite="friend.isFavorite"
+        @toggle-favorite="toggleFavoriteStatus"
+      ></friend-contact>
+      <!-- @toggle-favorite is how to make the parent component listen to the emit event -->
     </ul>
   </section>
 </template>
@@ -18,17 +29,28 @@ export default {
         {
           id: "manuel",
           name: "Manuel Lorenz",
-          phone: "123 4567 890",
+          phone: "123 456 7890",
           email: "manuel@localhost.com",
+          isFavorite: true,
         },
         {
           id: "julie",
           name: "Julie Jones",
-          phone: "098 7654 321",
+          phone: "098 765 4321",
           email: "julie@localhost.com",
+          isFavorite: false,
         },
       ],
     };
+  },
+  methods: {
+    //below is how we would change this particular data coming from the child component into the parent component
+    toggleFavoriteStatus(friendId) {
+      const identifiedFriend = this.friends.find(
+        (friend) => friend.id === friendId
+      );
+      identifiedFriend.isFavorite = !identifiedFriend.isFavorite;
+    },
   },
 };
 </script>
