@@ -9,6 +9,7 @@
       <li><strong>Phone:</strong> {{ phoneNumber }}</li>
       <li><strong>Email:</strong> {{ emailAddress }}</li>
     </ul>
+    <button @click="$emit('delete', id)">Delete</button>
   </li>
 </template>
 
@@ -32,7 +33,7 @@ export default {
   },
   //the emits property is a quick way to see if there's any emits in this component. good when working in a team
   //can be a simple array or more indepth as an object with custom validator
-  emits: ["toggle-favorite"],
+  emits: ["toggle-favorite", "delete"],
   //   emits: {
   //     //this if statement acts as a sort of validator
   //     "toggle-favorite": function (id) {
@@ -60,6 +61,10 @@ export default {
       //$emit makes the parent component listen. 1st argument is just a kebab-case name to assign it. any other argument is whatever data u wanna put
       this.$emit("toggle-favorite", this.id);
     },
+    //for this delete method we are emitting directly from the @click property in the delete button in the template
+    // deleteFriend() {
+    //   this.$emit("delete");
+    // },
   },
 };
 </script>
