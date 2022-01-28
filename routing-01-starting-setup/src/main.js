@@ -14,8 +14,8 @@ const router = createRouter({
     { path: '/teams', component: TeamsList },
     //below is a dynamic route. they should ALWAYS be ordered LAST in a similar path
     //everything with the : is a route parameter
-    { path: '/users', component: UsersList },
     { path: '/teams/:teamId', component: TeamMembers },
+    { path: '/users', component: UsersList },
   ],
   //below is how we would rename a css class if we wanted to. by default the dom would render an a tag with a class of "router-link-active"
   linkActiveClass: 'active',
