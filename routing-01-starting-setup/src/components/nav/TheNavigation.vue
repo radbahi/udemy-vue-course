@@ -49,6 +49,7 @@ a {
   display: inline-block;
 }
 
+/* router-link-active not working for some reason */
 a:hover,
 a:active,
 a.router-link-active {

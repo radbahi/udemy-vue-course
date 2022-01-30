@@ -19,6 +19,7 @@ import UserItem from '../users/UserItem.vue';
 export default {
   //users and teams being provided by app.vue
   inject: ['users', 'teams'],
+  props: ['teamId'],
   components: {
     UserItem,
   },
@@ -29,12 +30,9 @@ export default {
     };
   },
   methods: {
-    loadTeamMembers(route) {
-      //this component is loaded through the router which is why we can use $route
-      const teamId = route.params.teamId;
+    loadTeamMembers(teamId) {
       const selectedTeam = this.teams.find((team) => team.id === teamId);
       const members = selectedTeam.members;
-      console.log(members);
       const selectedMembers = [];
       for (const member of members) {
         const selectedUser = this.users.find((user) => user.id === member);
@@ -46,12 +44,24 @@ export default {
   },
   created() {
     //simply going to a different route doesn't change params so we need to actually grab the route object like below
-    this.loadTeamMembers(this.$route);
+    this.loadTeamMembers(this.teamId);
+    //this.$route.query is how we pull queries exactly. theyre NOT passed as props
+    console.log(this.$route.query, this.sort);
+  },
+  //we use below if we wanna do something when this component is going to be reused with new data bcuz the route changed
+  //this can work as an alternative to watch, but we wanna use props instead of route params to make this component more flexible
+  beforeRouteUpdate(to, from, next) {
+    console.log('TeamMembers Cmp beforeRouteUpdate');
+    console.log(to, from);
+    // this.loadTeamMembers(to.params.teamId);
+    next();
   },
   watch: {
     //when going to a new route though, the data behind it still changes, so we can set a watch to run this method when it does
-    $route(newRoute) {
-      this.loadTeamMembers(newRoute);
+    teamId(newId) {
+      if (newId) {
+        this.loadTeamMembers(newId);
+      }
     },
   },
 };

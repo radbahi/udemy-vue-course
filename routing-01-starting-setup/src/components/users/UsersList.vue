@@ -24,6 +24,12 @@ export default {
       this.$router.push('/teams');
     },
   },
+  //beforeRouteEnter works just like beforeEnter, its just defined in the component instead of route. use either or, not both
+  beforeRouteEnter(to, from, next) {
+    console.log('UsersList Cmp beforeRouteEnter');
+    console.log(to, from);
+    next();
+  },
 };
 </script>
 

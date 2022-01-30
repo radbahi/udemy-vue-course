@@ -4,6 +4,8 @@
   <main>
     <router-view></router-view>
   </main>
+  <!-- this is where we set up a different router-view with a name to load components with that route. see routes in main.js -->
+  <footer><router-view name="footer"></router-view></footer>
 </template>
 
 <script>

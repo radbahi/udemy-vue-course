@@ -12,7 +12,14 @@ export default {
   props: ['id', 'name', 'memberCount'],
   computed: {
     teamMembersLink() {
-      return '/teams/' + this.id;
+      // return '/teams/' + this.id + '?sort=asc';
+      //in big apps, doing routes like above can get cumbersome cuz of how many routes there can be
+      //doing it like below, when bound to a :to, can help describe the path u wanna send the id to
+      return {
+        name: 'team-members',
+        params: { teamId: this.id },
+        query: { sort: 'asc' },
+      };
     },
   },
 };
