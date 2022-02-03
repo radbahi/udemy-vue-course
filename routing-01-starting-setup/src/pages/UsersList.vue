@@ -1,5 +1,6 @@
 <template>
   <button @click="confirmInput">Confirm</button>
+  <button @click="saveChanges">Save Changes</button>
   <ul>
     <user-item
       v-for="user in users"
@@ -11,17 +12,23 @@
 </template>
 
 <script>
-import UserItem from './UserItem.vue';
+import UserItem from '../components/users/UserItem.vue';
 
 export default {
   components: {
     UserItem,
   },
   inject: ['users'],
+  data() {
+    return { changesSaved: false };
+  },
   methods: {
     confirmInput() {
       // $router is also from the router package
       this.$router.push('/teams');
+    },
+    saveChanges() {
+      this.changesSaved = true;
     },
   },
   //beforeRouteEnter works just like beforeEnter, its just defined in the component instead of route. use either or, not both
@@ -29,6 +36,20 @@ export default {
     console.log('UsersList Cmp beforeRouteEnter');
     console.log(to, from);
     next();
+  },
+  //beforeRouteLeave is good for asking about unsaved changes
+  beforeRouteLeave(to, from, next) {
+    console.log('UsersList Cmp beforeRouteLeave');
+    console.log(to, from);
+    if (this.changesSaved) {
+      next();
+    } else {
+      //confirm can pass a boolean via a yes/no option to the user and we pass the result onto next
+      const userWantsToLeave = confirm(
+        'Are you sure? You got unsaved changes!'
+      );
+      next(userWantsToLeave);
+    }
   },
 };
 </script>
