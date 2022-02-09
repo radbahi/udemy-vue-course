@@ -13,8 +13,8 @@ export default {
     //   // this is now pulling in the getter
     //   return this.$store.getters.finalCounter;
     // },
-    //below is a more convenient way of getting getters. good for needing multiple getters
-    ...mapGetters(['finalCounter']),
+    //below is a more convenient way of getting getters from a namespaced module. good for needing multiple getters
+    ...mapGetters('numbers', ['finalCounter']),
 
     // //below is how we would replace the default names with our own if we wanted
     // ...mapGetters({theFinalCount: 'finalCounter'})

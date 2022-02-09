@@ -32,8 +32,8 @@ export default {
   methods: {
     addOne() {
       //$store.commit is how we call the global method in mutations to update state
-      //$store.dispatch is how we call an action, which may be preferred if we're doing something asynchronous with the state
-      this.$store.dispatch('increase', { value: 10 });
+      //$store.dispatch is how we call an action from a namespaced module, which may be preferred if we're doing something asynchronous with the state
+      this.$store.dispatch('numbers/increase', { value: 10 });
       // // below is an alternative way to commit
       // this.$store.commit({type: 'increase', value:10})
     },

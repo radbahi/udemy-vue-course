@@ -13,9 +13,9 @@ export default {
     //   //$store.dispatch is how we call an action, which may be preferred if we're doing something asynchronous with the state
     //   this.$store.dispatch('increment');
     // },
-    //below is a more convenient way of getting actions. good for needing multiple actions
+    //below is a more convenient way of getting actions from a namespaced module. good for needing multiple actions
     //remember to pass in arguments in template if needed
-    ...mapActions(['increment', 'increase']),
+    ...mapActions('numbers', ['increment', 'increase']),
 
     // //below is how we would replace the default names with our own if we wanted
     // ...mapActions({inc: 'increment', addMore: 'increase'})
