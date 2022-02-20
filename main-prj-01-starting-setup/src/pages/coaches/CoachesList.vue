@@ -7,7 +7,9 @@
       <div class="controls">
         <base-button mode="outline">Refresh</base-button>
         <!-- just adding link as below auto sets the prop to true for the component -->
-        <base-button link to="/register">Register as Coach</base-button>
+        <base-button v-if="!isCoach" link to="/register"
+          >Register as Coach</base-button
+        >
       </div>
       <ul v-if="hasCoaches">
         <coach-item
@@ -41,6 +43,9 @@ export default {
     };
   },
   computed: {
+    isCoach() {
+      return this.$store.getters['coach/isCoach'];
+    },
     filteredCoaches() {
       //remember that this is how we get namedspaced module data. it goes ['namedspaced name/getter name']
       const coaches = this.$store.getters['coaches/coaches'];
