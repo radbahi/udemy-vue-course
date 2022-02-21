@@ -1,17 +1,22 @@
 <template>
+  <!-- !!error converts into a real boolean if value is truthy -->
+  <base-dialog :show="!!error" title="An error occurred!" @close="handleError"
+    ><p>{{ error }}</p></base-dialog
+  >
   <section>
     <coach-filter @change-filter="setFilters"></coach-filter>
   </section>
   <section>
     <base-card>
       <div class="controls">
-        <base-button mode="outline">Refresh</base-button>
+        <base-button mode="outline" @click="loadCoaches">Refresh</base-button>
         <!-- just adding link as below auto sets the prop to true for the component -->
-        <base-button v-if="!isCoach" link to="/register"
+        <base-button v-if="!isCoach && !isLoading" link to="/register"
           >Register as Coach</base-button
         >
       </div>
-      <ul v-if="hasCoaches">
+      <div v-if="isLoading"><base-spinner></base-spinner></div>
+      <ul v-else-if="hasCoaches">
         <coach-item
           v-for="coach in filteredCoaches"
           :key="coach.id"
@@ -35,6 +40,8 @@ export default {
   components: { CoachItem, CoachFilter },
   data() {
     return {
+      isLoading: false,
+      error: null,
       activeFilters: {
         frontend: true,
         backend: true,
@@ -44,7 +51,7 @@ export default {
   },
   computed: {
     isCoach() {
-      return this.$store.getters['coach/isCoach'];
+      return this.$store.getters['coaches/isCoach'];
     },
     filteredCoaches() {
       //remember that this is how we get namedspaced module data. it goes ['namedspaced name/getter name']
@@ -63,13 +70,29 @@ export default {
       });
     },
     hasCoaches() {
-      return this.$store.getters['coaches/hasCoaches'];
+      //using !this.isLoading checks if we're loading atm
+      return !this.isLoading && this.$store.getters['coaches/hasCoaches'];
     },
+  },
+  created() {
+    this.loadCoaches();
   },
   methods: {
     // updatedFilters is being emitted from coach-filter
     setFilters(updatedFilters) {
       this.activeFilters = updatedFilters;
+    },
+    async loadCoaches() {
+      this.isLoading = true;
+      try {
+        await this.$store.dispatch('coaches/loadCoaches');
+      } catch (error) {
+        this.error = error.message || 'Something went wrong';
+      }
+      this.isLoading = false;
+    },
+    handleError() {
+      this.error = null;
     },
   },
 };
