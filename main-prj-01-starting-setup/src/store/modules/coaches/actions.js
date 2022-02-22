@@ -28,7 +28,11 @@ export default {
 
     context.commit('registerCoach', { ...coachData, id: userId });
   },
-  async loadCoaches(context) {
+  async loadCoaches(context, payload) {
+    //below prevents rest of function running if less than a min ago. forceRefresh comes from refresh button in coaches list
+    if (!payload.forceRefresh && !context.getters.shouldUpdate) {
+      return;
+    }
     const response = await fetch(
       `https://vue-http-demo-23749-default-rtdb.firebaseio.com/coaches.json`
     );
@@ -54,5 +58,6 @@ export default {
     }
 
     context.commit('setCoaches', coaches);
+    context.commit('setFetchTimestamp');
   },
 };

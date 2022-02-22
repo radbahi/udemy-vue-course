@@ -12,4 +12,14 @@ export default {
     //some returns true if some coach fills a criteria
     return coaches.some((coach) => coach.id === userId);
   },
+  //shouldUpdate is for lastFetch
+  shouldUpdate(state) {
+    const lastFetch = state.lastFetch;
+    if (!lastFetch) {
+      return true;
+    }
+    const currentTimestamp = new Date().getTime();
+    //below returns true if more than a min ago, else returns false
+    return (currentTimestamp - lastFetch) / 1000 > 60;
+  },
 };

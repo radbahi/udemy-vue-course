@@ -6,6 +6,8 @@ export default {
   namespaced: true,
   state() {
     return {
+      //lastFetch holds a timestamp on when data was last fetched
+      lastFetch: null,
       coaches: [
         {
           id: 'c1',
