@@ -1,6 +1,6 @@
 <template>
-  <!-- we wrap this whole thing in a div so it can play nice with <transition> -->
   <div>
+    <!-- we wrap this whole thing in a div so it can play nice with <transition> -->
     <!-- !!error converts into a real boolean if value is truthy -->
     <base-dialog :show="!!error" title="An error occurred!" @close="handleError"
       ><p>{{ error }}</p></base-dialog

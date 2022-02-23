@@ -1,6 +1,6 @@
 <template>
-  <!-- we wrap this whole thing in a div so it can play nice with <transition> -->
   <div>
+    <!-- we wrap this whole thing in a div so it can play nice with <transition> -->
     <section>
       <base-card
         ><h2>{{ fullName }}</h2>
