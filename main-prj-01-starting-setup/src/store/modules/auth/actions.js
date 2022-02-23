@@ -1,7 +1,7 @@
 export default {
   async login(context, payload) {
     const response = await fetch(
-      'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyD1-DQeee3pE8-zb1op5EPlwt7WV5etQZI',
+      'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=',
       {
         method: 'POST',
         body: JSON.stringify({
@@ -30,7 +30,7 @@ export default {
   },
   async signup(context, payload) {
     const response = await fetch(
-      'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyD1-DQeee3pE8-zb1op5EPlwt7WV5etQZI',
+      'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=',
       {
         method: 'POST',
         body: JSON.stringify({
